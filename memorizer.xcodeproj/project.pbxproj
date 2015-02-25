@@ -14,6 +14,7 @@
 		6DD977711A96FCF600BE04F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DD977701A96FCF600BE04F9 /* Images.xcassets */; };
 		6DD977741A96FCF600BE04F9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DD977721A96FCF600BE04F9 /* LaunchScreen.xib */; };
 		6DD977801A96FCF600BE04F9 /* memorizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD9777F1A96FCF600BE04F9 /* memorizerTests.m */; };
+		6DD9778B1A96FEC700BE04F9 /* WebViewDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD9778A1A96FEC700BE04F9 /* WebViewDetail.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		6DD977791A96FCF600BE04F9 /* memorizerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = memorizerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD9777E1A96FCF600BE04F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DD9777F1A96FCF600BE04F9 /* memorizerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = memorizerTests.m; sourceTree = "<group>"; };
+		6DD977891A96FEC700BE04F9 /* WebViewDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewDetail.h; sourceTree = "<group>"; };
+		6DD9778A1A96FEC700BE04F9 /* WebViewDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewDetail.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 				6DD977681A96FCF600BE04F9 /* AppDelegate.m */,
 				6DD9776A1A96FCF600BE04F9 /* ViewController.h */,
 				6DD9776B1A96FCF600BE04F9 /* ViewController.m */,
+				6DD977891A96FEC700BE04F9 /* WebViewDetail.h */,
+				6DD9778A1A96FEC700BE04F9 /* WebViewDetail.m */,
 				6DD9776D1A96FCF600BE04F9 /* Main.storyboard */,
 				6DD977701A96FCF600BE04F9 /* Images.xcassets */,
 				6DD977721A96FCF600BE04F9 /* LaunchScreen.xib */,
@@ -221,6 +226,7 @@
 			files = (
 				6DD9776C1A96FCF600BE04F9 /* ViewController.m in Sources */,
 				6DD977691A96FCF600BE04F9 /* AppDelegate.m in Sources */,
+				6DD9778B1A96FEC700BE04F9 /* WebViewDetail.m in Sources */,
 				6DD977661A96FCF600BE04F9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
