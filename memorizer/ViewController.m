@@ -13,12 +13,12 @@
 {
 
 @private
-    
+    BOOL isflag;
     BOOL isUrl;
     BOOL isTarget;
     NSMutableArray *_titles;
     NSMutableDictionary *_various;
-
+    int i;
 }
 @end
 
@@ -28,31 +28,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    NSURLSessionConfiguration *urlsessionCofiguration=[NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *urlSession=[NSURLSession sessionWithConfiguration:urlsessionCofiguration delegate:self delegateQueue:nil];
-//    
-//    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"https://api.datamarket.azure.com/Bing/Search/v1/Web?Query=%@",self.myTextView.text]];
-//    
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
-//    
-//    NSURLSessionDataTask *urlsessionDataTask;
-//    
-//    urlsessionDataTask=[urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
-//        
-//        parser.delegate=self;
-//        
-//        [parser parse];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
-//            
-//        });
-//    }];
-//    
-//    [urlsessionDataTask resume];
-//    
-    
     self.searchTable.delegate=self;
     self.searchTable.dataSource=self;
     
@@ -61,13 +36,20 @@
     _titles=[NSMutableArray arrayWithObjects:_various, nil];
 }
 
+
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //////   2
 {
     return _titles.count;
+    
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString *CellIdentifier=@"Cell";   //static 定数
     
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -78,19 +60,40 @@
     
     }
     
-    cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
+   
+    cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
     
-    return cell;}
+    
+    
+//    
+//    if ([self.myTextView.text isEqual:@""]) {
+//        
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        
+//        _titles=[[defaults objectForKey:@"title"]mutableCopy];
+//
+//        [defaults synchronize];
+//        
+//        [defaults removeObjectForKey:@"title"];          // 削除
+//        
+//        cell.textLabel.text=@"";
+//    }
+        return cell;}
+
+
+
+
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+   
 
     WebViewDetail *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"WebViewDetail"];
     
     //detail.passiveUrl=[NSString stringWithFormat:@"https://api.datamarket.azure.com/Bing/Search/v1/Web?Query=%@",self.myTextView.text];
     
-    
-    
+  
     //APIから取ってきたURLを入れる
     
     
@@ -112,6 +115,83 @@
 
 
 }
+
+
+
+- (IBAction)searchText:(id)sender {
+    
+    
+    NSString *encoded=self.myTextView.text;
+    
+    
+    NSString *name =[NSString stringWithFormat:@"%@",encoded];
+    
+    
+    NSString *encodeName =[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"エンコード=%@", encodeName);
+    
+    NSURLSessionConfiguration *urlsessionCofiguration=[NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *urlSession=[NSURLSession sessionWithConfiguration:urlsessionCofiguration delegate:self delegateQueue:nil];
+    
+    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='%@'",encodeName]];
+    
+    NSLog(@"search=%@",url);
+    
+    
+    
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
+    
+    NSURLSessionDataTask *urlsessionDataTask;
+    
+    urlsessionDataTask=[urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
+        
+        parser.delegate=self;
+        
+        [parser parse];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            
+//        if(_titles.count==20)
+//        {
+//        [self.searchTable reloadData];
+//        }
+//            
+//            
+        });
+    }];
+    
+    [urlsessionDataTask resume];
+    
+    
+    self.searchTable.delegate=self;
+    self.searchTable.dataSource=self;
+    
+    isflag=YES;
+    
+    NSLog(@"%d",isflag);
+    
+    
+//    if (isflag==YES) {
+//        if(self.myTextView.text)
+//    
+//            NSLog(@"tap");
+//            
+//            }
+//    
+//    
+    
+}
+
+
+
+
+
+
+
+
 
 //////////////////デリゲートメソッド（解析開始時）
 -(void)parserDidStartDocument:(NSXMLParser *)parser{
@@ -176,64 +256,6 @@ qualifiedName:(NSString *)qName
 }
 
 
-////////////////////デリゲートメソッド（解析終了時）
-//-(void)parserDidEndDocument:(NSXMLParser *)parser{
-//
-//    [self.searchTable reloadData];
-//
-//}
-
-- (IBAction)searchText:(id)sender {
-    
-    
-    
-    
-    
-    NSString *encoded=self.myTextView.text;
-    
-    
-    NSString *name =[NSString stringWithFormat:@"%@",encoded];
-    
-    
-    NSString *encodeName =[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSLog(@"エンコード=%@", encodeName);
-    
-    NSURLSessionConfiguration *urlsessionCofiguration=[NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSession *urlSession=[NSURLSession sessionWithConfiguration:urlsessionCofiguration delegate:self delegateQueue:nil];
-    
-    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"https://api.datamarket.azure.com/Bing/Search/v1/Web?Query=%@",encoded]];
-    
-        NSLog(@"search=%@",url);
-    
-    
-    
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
-    
-    NSURLSessionDataTask *urlsessionDataTask;
-    
-    urlsessionDataTask=[urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
-        
-        parser.delegate=self;
-        
-        [parser parse];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
-            
-        });
-    }];
-    
-    [urlsessionDataTask resume];
-    
-    
-    self.searchTable.delegate=self;
-    self.searchTable.dataSource=self;
-}
-
-
-
 
 
 //////////////////デリゲートメソッド（解析終了時）
@@ -250,39 +272,11 @@ qualifiedName:(NSString *)qName
 
 
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

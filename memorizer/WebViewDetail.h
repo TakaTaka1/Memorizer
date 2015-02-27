@@ -11,4 +11,6 @@
 @interface WebViewDetail : UIViewController
 @property (weak, nonatomic) IBOutlet UIWebView *myWebView;
 @property (assign,nonatomic) NSString *passiveUrl;
+@property (assign,nonatomic) UIPasteboard *pasteboard;
+@property (assign,nonatomic) NSMutableArray *getter;
 @end
