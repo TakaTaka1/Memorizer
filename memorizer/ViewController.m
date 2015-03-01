@@ -13,16 +13,21 @@
 {
 
 @private
-    BOOL isflag;
+    //BOOL isflag;
     BOOL isUrl;
     BOOL isTarget;
     NSMutableArray *_titles;
     NSMutableDictionary *_various;
-    int i;
+    NSMutableArray *_space;
+    NSMutableDictionary *_nul;
+  
 }
 @end
 
 @implementation ViewController
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,9 +36,34 @@
     self.searchTable.delegate=self;
     self.searchTable.dataSource=self;
     
+    
     _various =[[NSMutableDictionary alloc]init];
+    
     _titles=[NSMutableArray array];
+    
+   // NSDictionary *tmp=@{@"title":@"検索してください",@"url":@""};
+    
+    //_various=[tmp mutableCopy];
+    
+    //isflag=YES;
+   
+    
     _titles=[NSMutableArray arrayWithObjects:_various, nil];
+   
+//    _nul=[[NSMutableDictionary alloc]init];
+//    _space=[NSMutableArray array];
+//    
+//    _space=[NSMutableArray arrayWithObjects:_nul, nil];
+//    
+// 
+//    NSString *null=@"";
+//    [_nul setObject:null forKey:@"null"];
+//    
+   
+    
+    
+    
+    
 }
 
 
@@ -41,6 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //////   2
 {
+   
     return _titles.count;
     
 }
@@ -58,27 +89,22 @@
     
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
+        
+    
     }
     
-   
-    cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
     
     
     
-//    
-//    if ([self.myTextView.text isEqual:@""]) {
-//        
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        
-//        _titles=[[defaults objectForKey:@"title"]mutableCopy];
+    
+        cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
+    
+        //cell.textLabel.text=[NSString stringWithFormat:@"%@",_space[indexPath.1][@"null"]];
 //
-//        [defaults synchronize];
-//        
-//        [defaults removeObjectForKey:@"title"];          // 削除
-//        
-//        cell.textLabel.text=@"";
-//    }
-        return cell;}
+
+    
+    
+    return cell;}
 
 
 
@@ -121,6 +147,11 @@
 - (IBAction)searchText:(id)sender {
     
     
+    //_titles=[[NSMutableArray alloc]init];
+    
+    [self.searchTable reloadData];
+    
+    
     NSString *encoded=self.myTextView.text;
     
     
@@ -154,13 +185,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
             
-//        if(_titles.count==20)
-//        {
-//        [self.searchTable reloadData];
-//        }
-//            
-//            
-        });
+       });
     }];
     
     [urlsessionDataTask resume];
@@ -168,20 +193,6 @@
     
     self.searchTable.delegate=self;
     self.searchTable.dataSource=self;
-    
-    isflag=YES;
-    
-    NSLog(@"%d",isflag);
-    
-    
-//    if (isflag==YES) {
-//        if(self.myTextView.text)
-//    
-//            NSLog(@"tap");
-//            
-//            }
-//    
-//    
     
 }
 
@@ -220,12 +231,19 @@ qualifiedName:(NSString *)qName
 //////////////////デリゲートメソッド（タグ以外のテキストを読み込んだ時）
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
 
+//    if (isflag) {
+//        _various =[[NSMutableDictionary alloc]init];
+//        _titles=[NSMutableArray array];
+//        
+//
+//        isflag=NO;
+//        
+//    }
+//    
     if(isTarget){
     
         [_various setObject:string forKey:@"title"];
-    
-    
-    
+        
     }else if(isUrl){
     
     
