@@ -24,20 +24,20 @@
     
     NSRange range = [str rangeOfString:@"https"];
     
-    if (range.location !=NSNotFound) {
+    if (range.location !=NSNotFound) {   
         
     
-        NSURL *myurl2=[NSURL URLWithString:[NSString stringWithFormat:@"%@",_passiveUrl]];
+    NSURL *myurl2=[NSURL URLWithString:[NSString stringWithFormat:@"%@",_passiveUrl]];
         
-        NSURLRequest *secondreq=[[NSURLRequest alloc]initWithURL:myurl2];
+    NSURLRequest *secondreq=[[NSURLRequest alloc]initWithURL:myurl2];
         
-        [self.myWebView loadRequest:secondreq];
+    [self.myWebView loadRequest:secondreq];
         
-        NSLog(@"get=%@",myurl2);}
+    NSLog(@"get=%@",myurl2);}
         
-     else if (range.location ==NSNotFound){
+    else if (range.location ==NSNotFound){
 
-      NSURL *myUrl=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",_passiveUrl]];
+    NSURL *myUrl=[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",_passiveUrl]];
     
     NSURLRequest *reqmyurl=[[NSURLRequest alloc]initWithURL:myUrl];
     
@@ -49,10 +49,7 @@
                                                  name:UIPasteboardChangedNotification
                                                object:nil];
 
-    
-    
-        
-        NSLog(@"get2=%@",myUrl);
+    NSLog(@"get2=%@",myUrl);
         
     
     self.myWebView.delegate=self;

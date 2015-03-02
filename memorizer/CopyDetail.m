@@ -12,8 +12,8 @@
 @interface CopyDetail ()
 {
     NSMutableArray *_getword;
-
-
+    BOOL ischange;
+    
 }
 @end
 
@@ -64,15 +64,7 @@
     }
     
     
-    //NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
-    
-    //_getword=[[userdefaults objectForKey:@"copytext"]mutableCopy];
-    
-    //[userdefaults setObject:_getword forKey:@"copytext"];
-    
-    //[userdefaults synchronize];
-    
-    NSLog(@"==%@",_getword[indexPath.row]);
+        NSLog(@"==%@",_getword[indexPath.row]);
     
     cell2.textLabel.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
     
@@ -85,6 +77,31 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
+    
+    
+    NSString* term = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    if (term) {
+        UIReferenceLibraryViewController* libraryViewController = [[UIReferenceLibraryViewController alloc] initWithTerm:term];
+        [self presentViewController:libraryViewController animated:YES completion:^(void){
+            
+        }];
+    }
+    
+    
+    
+    
+    UIReferenceLibraryViewController *myref=[self.storyboard instantiateViewControllerWithIdentifier:@"MyUIReferenceViewController"];
+    
+    
+    [[self navigationController]pushViewController:myref animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+    
+    
+    
+    
+    
     NSLog(@"tap");
 
 }
