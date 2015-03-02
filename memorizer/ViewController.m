@@ -18,9 +18,6 @@
     BOOL isTarget;
     NSMutableArray *_titles;
     NSMutableDictionary *_various;
-    NSMutableArray *_space;
-    NSMutableDictionary *_nul;
-  
 }
 @end
 
@@ -37,21 +34,8 @@
     self.mySearchBar.delegate = self;
     self.mySearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.mySearchBar.spellCheckingType = UITextSpellCheckingTypeYes;
-    
-//    [UISearchBar appearance].barTintColor = [UIColor colorWithRed:0.192157 green:0.760784 blue:0.952941 alpha:1.00];
-//    [UISearchBar appearance].tintColor = [UIColor colorWithRed:0.647059 green:0.647059 blue:0.647059 alpha:1.00];
-//    
-    
-    
-    
-    
     self.searchTable.delegate=self;
     self.searchTable.dataSource=self;
-    
-//    
-//    self.myTextView.placeholder=@"search";
-//    self.myTextView.textAlignment=NSTextAlignmentCenter;
-//    
     
     _various =[[NSMutableDictionary alloc]init];
     
@@ -63,35 +47,17 @@
     
     isflag=YES;
    
-    
     _titles=[NSMutableArray arrayWithObjects:_various, nil];
    
-//    _nul=[[NSMutableDictionary alloc]init];
-//    _space=[NSMutableArray array];
-//    
-//    _space=[NSMutableArray arrayWithObjects:_nul, nil];
-//    
-// 
-//    NSString *null=@"";
-//    [_nul setObject:null forKey:@"null"];
-//    
-   
-    
-    
-    
     
 }
-
 
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //////   2
 {
-   
     return _titles.count;
-    
 }
-
 
 
 
@@ -103,54 +69,45 @@
     
     if(cell==nil){
     
-        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    
-        
-    
+    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
     
+    cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
     
-    
-    
-        cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
-    
-        //cell.textLabel.text=[NSString stringWithFormat:@"%@",_space[indexPath.1][@"null"]];
-//
 
-    
-    
     return cell;}
-
-
-
 
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
    
-
     WebViewDetail *detail=[self.storyboard instantiateViewControllerWithIdentifier:@"WebViewDetail"];
-    
-  
-    //APIから取ってきたURLを入れる
     
     
     [[self navigationController]pushViewController:detail animated:YES];
+    
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     
     detail.passiveUrl=_titles[indexPath.row][@"url"];
 
 }
 
+
+
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential *))completionHandler{
 
+    
     NSString *userName=@"YHsrwCyBLh47XXaWRFjLXF1L8ZxQLE2hMlSgtTLbkhI";
     NSString *passWord=@"YHsrwCyBLh47XXaWRFjLXF1L8ZxQLE2hMlSgtTLbkhI";
     
+    
     NSURLSessionAuthChallengeDisposition dispositon=NSURLSessionAuthChallengeUseCredential;
-    NSURLCredential *credenTial=[[NSURLCredential alloc]initWithUser:userName password:passWord persistence:NSURLCredentialPersistenceNone];
+    NSURLCredential *credenTial=[[NSURLCredential alloc]initWithUser:userName password:passWord
+    persistence:NSURLCredentialPersistenceNone];
     completionHandler(dispositon,credenTial);
 
 
@@ -161,15 +118,13 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     
     
-    
     self.mySearchBar.delegate = self;
     self.mySearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.mySearchBar.spellCheckingType = UITextSpellCheckingTypeYes;
     
-//    [UISearchBar appearance].barTintColor = [UIColor colorWithRed:0.192157 green:0.760784 blue:0.952941 alpha:1.00];
-//    [UISearchBar appearance].tintColor = [UIColor colorWithRed:0.647059 green:0.647059 blue:0.647059 alpha:1.00];
-//    
+    
     _titles=[[NSMutableArray alloc]init];
+    
     
     [self.searchTable reloadData];
     
@@ -183,28 +138,38 @@
     NSString *encodeName =[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSLog(@"エンコード=%@", encodeName);
     
-    NSURLSessionConfiguration *urlsessionCofiguration=[NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *urlSession=[NSURLSession sessionWithConfiguration:urlsessionCofiguration delegate:self delegateQueue:nil];
+    
+    NSURLSessionConfiguration *urlsessionCofiguration=[NSURLSessionConfiguration
+                                                       defaultSessionConfiguration];
+    
+    NSURLSession *urlSession=[NSURLSession sessionWithConfiguration:urlsessionCofiguration delegate:self
+                                                      delegateQueue:nil];
+    
     
     NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='%@'",encodeName]];
+    
     
     NSLog(@"search=%@",url);
     
     
-    
     [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
+    
     
     NSURLSessionDataTask *urlsessionDataTask;
     
+    
     urlsessionDataTask=[urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
+    NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
+    
         
-        parser.delegate=self;
+    parser.delegate=self;
+    
         
-        [parser parse];
+    [parser parse];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+        
+    dispatch_async(dispatch_get_main_queue(), ^{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
             
         });
     }];
@@ -212,85 +177,26 @@
     [urlsessionDataTask resume];
     
     
-    self.searchTable.delegate=self;
-    self.searchTable.dataSource=self;
-
 }
+
+
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
    
+    
     [searchBar resignFirstResponder];
     [self.searchTable reloadData];
+    
     
 }
 
 
-
-
-//- (IBAction)searchText:(id)sender {
-//    
-//    
-//    _titles=[[NSMutableArray alloc]init];
-//    
-//    [self.searchTable reloadData];
-//    
-//    
-//    NSString *encoded=self.myTextView.text;
-//    
-//    
-//    NSString *name =[NSString stringWithFormat:@"%@",encoded];
-//    
-//    
-//    NSString *encodeName =[name stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"エンコード=%@", encodeName);
-//    
-//    NSURLSessionConfiguration *urlsessionCofiguration=[NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *urlSession=[NSURLSession sessionWithConfiguration:urlsessionCofiguration delegate:self delegateQueue:nil];
-//    
-//    NSURL *url=[NSURL URLWithString:[NSString stringWithFormat:@"https://api.datamarket.azure.com/Bing/Search/v1/Web?Query='%@'",encodeName]];
-//    
-//    NSLog(@"search=%@",url);
-//    
-//    
-//    
-//    
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible=YES;
-//    
-//    NSURLSessionDataTask *urlsessionDataTask;
-//    
-//    urlsessionDataTask=[urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
-//        
-//        parser.delegate=self;
-//        
-//        [parser parse];
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
-//            
-//       });
-//    }];
-//    
-//    [urlsessionDataTask resume];
-//    
-//    
-//    self.searchTable.delegate=self;
-//    self.searchTable.dataSource=self;
-//    
-//}
-//
-
-
-
-
-
-
-
-
 //////////////////デリゲートメソッド（解析開始時）
 -(void)parserDidStartDocument:(NSXMLParser *)parser{
+    
     isTarget=NO;
     isUrl=NO;
+
 }
 
 //////////////////デリゲートメソッド（要素の開始タグを読み込んだ時）
@@ -315,22 +221,22 @@ qualifiedName:(NSString *)qName
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
 
     if (isflag) {
-        _various =[[NSMutableDictionary alloc]init];
-        _titles=[NSMutableArray array];
+    _various =[[NSMutableDictionary alloc]init];
+    _titles=[NSMutableArray array];
         
 
-        isflag=NO;
+    isflag=NO;
         
     }
     
     if(isTarget){
     
-        [_various setObject:string forKey:@"title"];
+    [_various setObject:string forKey:@"title"];
         
     }else if(isUrl){
     
     
-        [_various setObject:string forKey:@"url"];
+    [_various setObject:string forKey:@"url"];
     
     }
    

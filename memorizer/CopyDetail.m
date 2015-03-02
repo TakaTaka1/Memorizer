@@ -80,27 +80,25 @@
     
     
     NSString* term = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    
+    
     if (term) {
-        UIReferenceLibraryViewController* libraryViewController = [[UIReferenceLibraryViewController alloc] initWithTerm:term];
-        [self presentViewController:libraryViewController animated:YES completion:^(void){
-            
+    
+        
+    UIReferenceLibraryViewController* libraryViewController = [[UIReferenceLibraryViewController alloc]
+                                                               initWithTerm:term];
+    
+        
+    [self presentViewController:libraryViewController animated:YES completion:^(void){
+    
+        
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
         }];
     }
     
     
-    
-    
-    UIReferenceLibraryViewController *myref=[self.storyboard instantiateViewControllerWithIdentifier:@"MyUIReferenceViewController"];
-    
-    
-    [[self navigationController]pushViewController:myref animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
-    
-    
-    
-    
+   
     
     NSLog(@"tap");
 
