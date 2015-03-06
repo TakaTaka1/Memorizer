@@ -11,8 +11,10 @@
 
 @interface CopyDetail ()
 {
+    
     NSMutableArray *_getword;
     BOOL ischange;
+    NSInteger *_count;
     
 }
 @end
@@ -20,9 +22,19 @@
 @implementation CopyDetail
 
 -(void)viewWillAppear:(BOOL)animated{
-
+    
+    
     NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
-    _getword=[userdefaults objectForKey:@"copytext"];
+    
+    _getword=[[NSMutableArray alloc]init];
+   
+    _getword=[[userdefaults objectForKey:@"copytext"]mutableCopy];
+    
+    //[_getword addObject:[NSString stringWithFormat:@"%@"]];
+    
+    [userdefaults objectForKey:[NSString stringWithFormat:@"%@",_getword]];
+    
+    [userdefaults synchronize];
     
     [self.CopyTableView reloadData];
 
@@ -34,11 +46,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    
+    
+    
     self.CopyTableView.delegate=self;
     self.CopyTableView.dataSource=self;
-   
-    _getword=[[NSMutableArray alloc]init];
-
+    //_getword=[[NSMutableArray alloc]init];
+    
     
 }
 
@@ -68,7 +83,8 @@
     
     cell2.textLabel.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
     
-    
+//    [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    
     return cell2;
     
 }
@@ -104,6 +120,59 @@
 
 }
 
+//-(BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
+//{
+//    return YES;
+//}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+  //  [self.CopyTableView setEditing:YES animated:YES];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  //インスタンス生成
+        
+        WebViewDetail *array;
+        
+        _getword=array.getter;
+        
+        [ud removeObjectForKey:@"copytext"];
+//       
+//        //_getword=[ud objectForKey:@"copytext"];
+//        
+        [ud synchronize];
+//      
+        NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
+//        
+//        
+//        
+        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationFade];
+//        
+    }
+    
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return @"delete";
+
+}
+
+
+//
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    
+//    [_CopyTableView deleteRowsAtIndexPaths:_getword[indexPath.row][@"copytext"] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    
+//    NSLog(@"test");
+//    
+//    
+//    
+//}
 
 
 

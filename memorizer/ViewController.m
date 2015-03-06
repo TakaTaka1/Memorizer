@@ -30,7 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
+    self.mySearchBar.showsCancelButton=YES;
     self.mySearchBar.delegate = self;
     self.mySearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.mySearchBar.spellCheckingType = UITextSpellCheckingTypeYes;
@@ -115,8 +115,8 @@
 
 
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    
+
+-(void)searchBarSearchButtonClicked:(UISearchBar*)searchBar{
     
     self.mySearchBar.delegate = self;
     self.mySearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -127,6 +127,9 @@
     
     
     [self.searchTable reloadData];
+    
+    
+    
     
     
     NSString *encoded=self.mySearchBar.text;
@@ -159,17 +162,17 @@
     
     
     urlsessionDataTask=[urlSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-    NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
-    
-        
-    parser.delegate=self;
-    
-        
-    [parser parse];
+        NSXMLParser *parser=[[NSXMLParser alloc]initWithData:data];
         
         
-    dispatch_async(dispatch_get_main_queue(), ^{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+        parser.delegate=self;
+        
+        
+        [parser parse];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
             
         });
     }];
@@ -177,18 +180,18 @@
     [urlsessionDataTask resume];
     
     
-}
-
-
-
--(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-   
-    
     [searchBar resignFirstResponder];
-    [self.searchTable reloadData];
-    
-    
+
 }
+
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+
+}
+
+
 
 
 //////////////////デリゲートメソッド（解析開始時）
