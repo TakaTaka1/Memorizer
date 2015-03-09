@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "WebViewDetail.h"
+#import "CustomTableViewCell.h"
+#import "Const.h"
 
 @interface ViewController ()
 {
@@ -23,12 +25,21 @@
 
 @implementation ViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+
+  
+   
+    
+
+}
+
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
     
     self.mySearchBar.showsCancelButton=YES;
     self.mySearchBar.delegate = self;
@@ -48,9 +59,16 @@
     isflag=YES;
    
     _titles=[NSMutableArray arrayWithObjects:_various, nil];
-   
     
-}
+    
+    // カスタマイズしたセルをテーブルビューにセット
+    
+    UINib *nib = [UINib nibWithNibName:CustomCell bundle:nil];    //CustomCellを認識
+    [self.searchTable registerNib:nib forCellReuseIdentifier:@"Cell"]; //さらにsearchTableにCellタグで認識
+    
+    
+    
+   }
 
 
 
@@ -63,20 +81,36 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    static NSString *CellIdentifier=@"Cell";   //static 定数
+    //static NSString *CellIdentifier=@"Cell";   //static 定数
+    static NSString *const CustomCell=@"Cell";
     
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if(cell==nil){
-    
-    cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+    CustomTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CustomCell];
     
     
-    cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
+//    if(cell==nil){
+//        
+//    cell=[[CustomTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CustomCell];
+//    
+//                    UINib *nib = [UINib nibWithNibName:CustomCell bundle:nil];
+//    [self.searchTable registerNib:nib forCellReuseIdentifier:@"CustomTableViewCell"];
+//    [self.searchDisplayController.searchResultsTableView registerNib:nib forCellReuseIdentifier:@"CustomTableViewCell"];
+//   
+//    
+//   
+//        
+//        
+//   }
     
-
-    return cell;}
+    cell.myLabel1.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
+    
+    cell.myLabel2.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
+    
+    
+    //cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
+    //cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
+   
+    return cell;
+}
 
 
 
@@ -126,7 +160,7 @@
     _titles=[[NSMutableArray alloc]init];
     
     
-    [self.searchTable reloadData];
+    //[self.searchTable reloadData];
     
     
     
@@ -181,14 +215,24 @@
     
     
     [searchBar resignFirstResponder];
+    
 
 }
+
+
 
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
 
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [CustomTableViewCell rowHeight];
+    
 }
 
 

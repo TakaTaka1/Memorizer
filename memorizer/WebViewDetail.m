@@ -8,6 +8,7 @@
 
 #import "WebViewDetail.h"
 
+
 @interface WebViewDetail () <UIWebViewDelegate>
 {BOOL flag;}
 @end

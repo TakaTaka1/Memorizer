@@ -26,9 +26,15 @@
     
     NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
     
-    _getword=[[NSMutableArray alloc]init];
    
+    
+    if (_getword==nil) {
+           _getword=[[NSMutableArray alloc]init];
+ 
+    }
+    
     _getword=[[userdefaults objectForKey:@"copytext"]mutableCopy];
+   
     
     //[_getword addObject:[NSString stringWithFormat:@"%@"]];
     
@@ -46,6 +52,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //self.navigationController.navigationBar.tintColor = [UIColor greenColor];
     
     
     
@@ -120,10 +127,6 @@
 
 }
 
-//-(BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
-//{
-//    return YES;
-//}
 
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,22 +138,23 @@
     {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  //インスタンス生成
         
-        WebViewDetail *array;
+        NSMutableArray *copytext=[[ud objectForKey:@"copytext"]mutableCopy];
+        //ローカルで配列を作成　mutablecopyメソッドを忘れずに
         
-        _getword=array.getter;
+        [copytext removeObjectAtIndex:indexPath.row];
+        //row毎のobjectを削除
         
-        [ud removeObjectForKey:@"copytext"];
-//       
-//        //_getword=[ud objectForKey:@"copytext"];
-//        
+        [ud setObject:copytext forKey:@"copytext"];
+        //copytext配列をuserdefaultに保存
+        
         [ud synchronize];
-//      
-        NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section];
-//        
-//        
-//        
-        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationFade];
-//        
+        //userdefaultを更新
+
+        _getword =copytext;
+        
+        
+        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+      
     }
     
 }
