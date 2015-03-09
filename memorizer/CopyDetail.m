@@ -36,8 +36,6 @@
     _getword=[[userdefaults objectForKey:@"copytext"]mutableCopy];
    
     
-    //[_getword addObject:[NSString stringWithFormat:@"%@"]];
-    
     [userdefaults objectForKey:[NSString stringWithFormat:@"%@",_getword]];
     
     [userdefaults synchronize];
@@ -52,15 +50,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //self.navigationController.navigationBar.tintColor = [UIColor greenColor];
-    
-    
-    
     
     self.CopyTableView.delegate=self;
     self.CopyTableView.dataSource=self;
-    //_getword=[[NSMutableArray alloc]init];
-    
+    [self.CopyTableView setEditing:NO animated:YES];
+
     
 }
 
@@ -90,8 +84,7 @@
     
     cell2.textLabel.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
     
-//    [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//    
+
     return cell2;
     
 }
@@ -132,11 +125,10 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-  //  [self.CopyTableView setEditing:YES animated:YES];
-    
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];  //インスタンス生成
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        //インスタンス生成
         
         NSMutableArray *copytext=[[ud objectForKey:@"copytext"]mutableCopy];
         //ローカルで配列を作成　mutablecopyメソッドを忘れずに
@@ -153,9 +145,11 @@
         _getword =copytext;
         
         
+       
         [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
       
     }
+   
     
 }
 
@@ -165,19 +159,6 @@ titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
     return @"delete";
 
 }
-
-
-//
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    [_CopyTableView deleteRowsAtIndexPaths:_getword[indexPath.row][@"copytext"] withRowAnimation:UITableViewRowAnimationAutomatic];
-//    
-//    NSLog(@"test");
-//    
-//    
-//    
-//}
-
 
 
 
