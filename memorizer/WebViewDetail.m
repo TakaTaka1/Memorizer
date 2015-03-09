@@ -63,24 +63,12 @@
 
 -(BOOL)pasteboardChanged:(id)sender{
     
-    //NSString *change=[NSString stringWithFormat:@"%d",i];    //インスタンス作成
-    
-    
-    
-    _pasteboard = [UIPasteboard generalPasteboard];
-    
-    
+      _pasteboard = [UIPasteboard generalPasteboard];
     
     NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
     
-    
-    
-    
     ////////////userdefaultは、一度配列に格納されて配列に文字を増やしたいときに呼び出されてそれを他の画面で共有できる
-    
-    
-    
-    
+
     NSString *string = _pasteboard.string;
     
     NSMutableArray *array = [[userdefaults objectForKey:@"copytext"] mutableCopy];   //copytextをキーとして使いmutableCopyメソッドで格納していく
@@ -116,11 +104,6 @@
         flag=NO;
         
     }
-    
-    
-    
-    
-    
     
     return YES;
     
