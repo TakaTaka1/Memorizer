@@ -10,9 +10,6 @@
 
 @interface ViewController : UIViewController <NSXMLParserDelegate,UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate,NSURLSessionDataDelegate,UISearchBarDelegate>
 
-//@property (weak, nonatomic) IBOutlet UITextField *myTextView;
-//- (IBAction)searchText:(id)sender;
-//@property (weak, nonatomic) IBOutlet UITableView *searchTable;
 @property (weak, nonatomic) IBOutlet UISearchBar *mySearchBar;
 @property (weak, nonatomic) IBOutlet UITableView *searchTable;
 
