@@ -13,4 +13,5 @@
 @property (assign,nonatomic) NSString *passiveUrl;
 @property (assign,nonatomic) UIPasteboard *pasteboard;
 @property (assign,nonatomic) NSMutableArray *getter;
+
 @end

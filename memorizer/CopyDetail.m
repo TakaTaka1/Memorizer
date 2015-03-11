@@ -95,7 +95,7 @@
    
     
     
-    NSString* term = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    NSString *term = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
     
     
     if (term) {

@@ -10,7 +10,8 @@
 
 
 @interface WebViewDetail () <UIWebViewDelegate>
-{BOOL flag;}
+{BOOL flag;
+}
 @end
 
 @implementation WebViewDetail
@@ -52,14 +53,48 @@
 
     NSLog(@"get2=%@",myUrl);
         
+        
+        
+        
     
+        
+    UISwipeGestureRecognizer *swipe= [[UISwipeGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(swipe:)];
+        
+    // スワイプの方向は右方向を指定する。
+    swipe.direction = UISwipeGestureRecognizerDirectionRight;
+      
+    // スワイプ動作に必要な指は1本と指定する。
+    swipe.numberOfTouchesRequired = 1;
+    
+    
+    [self.myWebView addGestureRecognizer:swipe];
+        
     self.myWebView.delegate=self;
     }
-    
-    
-    
+        
     
 }
+
+
+-(void)swipe:(UISwipeGestureRecognizer *)gesture {
+    
+    
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)])
+    {
+    
+         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        
+        [self.myWebView goBack];
+
+    }
+    
+   // [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+
+
+
 
 -(BOOL)pasteboardChanged:(id)sender{
     

@@ -25,7 +25,6 @@
 
 @implementation ViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -40,7 +39,7 @@
     
     _various =[[NSMutableDictionary alloc]init];
     
-    _titles=[NSMutableArray array];
+    _titles=[[NSMutableArray alloc]init];
     
     NSDictionary *tmp=@{@"title":@"",@"url":@""};
     
@@ -58,13 +57,15 @@
     
     
     
+    
    }
 
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //////   2
 {
-    return _titles.count;
+    
+     return _titles.count-1;
 }
 
 
@@ -75,6 +76,8 @@
     static NSString *const CustomCell=@"Cell";
     
     CustomTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:CustomCell];
+    
+    
     
     
 //    if(cell==nil){
@@ -91,11 +94,14 @@
 //        
 //   }
     
+    
+    
     cell.myLabel1.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
     
     cell.myLabel2.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
     
     
+
     //cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
     //cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
    
@@ -146,8 +152,6 @@
     self.mySearchBar.autocorrectionType = UITextAutocorrectionTypeNo;
     self.mySearchBar.spellCheckingType = UITextSpellCheckingTypeYes;
     
-    
-    _titles=[[NSMutableArray alloc]init];
     
     
     //[self.searchTable reloadData];
@@ -206,7 +210,9 @@
     
     [searchBar resignFirstResponder];
     
-
+    _titles=[[NSMutableArray alloc]init];
+    
+    
 }
 
 
@@ -257,18 +263,20 @@ qualifiedName:(NSString *)qName
 //////////////////デリゲートメソッド（タグ以外のテキストを読み込んだ時）
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
 
-    if (isflag) {
-    _various =[[NSMutableDictionary alloc]init];
-    _titles=[NSMutableArray array];
-        
-
-    isflag=NO;
-        
-    }
-    
+//    if (isflag) {
+//    _various =[[NSMutableDictionary alloc]init];
+//    _titles=[NSMutableArray array];
+//        
+//
+//    isflag=NO;
+//        
+//    }
+//    
     if(isTarget){
     
     [_various setObject:string forKey:@"title"];
+    
+        
         
     }else if(isUrl){
     
@@ -276,10 +284,13 @@ qualifiedName:(NSString *)qName
     [_various setObject:string forKey:@"url"];
     
     }
-   
+
 
 
 }
+
+
+
 
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
@@ -296,7 +307,6 @@ qualifiedName:(NSString *)qName
 
 
 
-
 }
 
 
@@ -305,7 +315,12 @@ qualifiedName:(NSString *)qName
 //////////////////デリゲートメソッド（解析終了時）
 -(void)parserDidEndDocument:(NSXMLParser *)parser{
     
+    [_titles removeObjectAtIndex:0];
+    
+    //[_titles removeObjectAtIndex:0];
+    
     [self.searchTable reloadData];
+    
     
 }
 
