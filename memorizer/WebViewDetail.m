@@ -98,7 +98,7 @@
 
 -(BOOL)pasteboardChanged:(id)sender{
     
-      _pasteboard = [UIPasteboard generalPasteboard];
+    _pasteboard = [UIPasteboard generalPasteboard];
     
     NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
     
@@ -109,7 +109,7 @@
     NSMutableArray *array = [[userdefaults objectForKey:@"copytext"] mutableCopy];   //copytextをキーとして使いmutableCopyメソッドで格納していく
     
     
-    if(flag==NO)
+    if(flag==NO)    //PasteBoardは、保存と消去で２回呼ばれるので、このif文を記述
         
     {
         
@@ -120,7 +120,7 @@
         }
         
         
-        [array addObject:[NSString stringWithFormat:@"%@",string]];//////配列の終わりを表すnil
+        [array addObject:[NSString stringWithFormat:@"%@",string]];
         
         [userdefaults setObject:array forKey:@"copytext"];
         

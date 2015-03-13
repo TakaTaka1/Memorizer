@@ -15,7 +15,7 @@
 {
 
 @private
-    BOOL isflag;
+    
     BOOL isUrl;
     BOOL isTarget;
     NSMutableArray *_titles;
@@ -44,8 +44,6 @@
     NSDictionary *tmp=@{@"title":@"",@"url":@""};
     
     _various=[tmp mutableCopy];
-    
-    isflag=YES;
    
     _titles=[NSMutableArray arrayWithObjects:_various, nil];
     
@@ -79,6 +77,7 @@
     
     
     
+//customCell利用時は、このコードは、必要ない
     
 //    if(cell==nil){
 //        
@@ -102,9 +101,6 @@
     
     
 
-    //cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
-    //cell.textLabel.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
-   
     return cell;
 }
 
@@ -153,13 +149,6 @@
     self.mySearchBar.spellCheckingType = UITextSpellCheckingTypeYes;
     
     
-    
-    //[self.searchTable reloadData];
-    
-    
-    
-    
-    
     NSString *encoded=self.mySearchBar.text;
     
     
@@ -201,6 +190,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
+            [self.searchTable reloadData];
             
         });
     }];
@@ -263,15 +253,6 @@ qualifiedName:(NSString *)qName
 //////////////////デリゲートメソッド（タグ以外のテキストを読み込んだ時）
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
 
-//    if (isflag) {
-//    _various =[[NSMutableDictionary alloc]init];
-//    _titles=[NSMutableArray array];
-//        
-//
-//    isflag=NO;
-//        
-//    }
-//    
     if(isTarget){
     
     [_various setObject:string forKey:@"title"];
@@ -317,9 +298,6 @@ qualifiedName:(NSString *)qName
     
     [_titles removeObjectAtIndex:0];
     
-    //[_titles removeObjectAtIndex:0];
-    
-    [self.searchTable reloadData];
     
     
 }

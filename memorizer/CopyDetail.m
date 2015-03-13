@@ -13,7 +13,6 @@
 {
     
     NSMutableArray *_getword;
-    BOOL ischange;
     NSInteger *_count;
     
 }
@@ -25,8 +24,6 @@
     
     
     NSUserDefaults *userdefaults=[NSUserDefaults standardUserDefaults];
-    
-   
     
     if (_getword==nil) {
            _getword=[[NSMutableArray alloc]init];
@@ -80,7 +77,7 @@
     }
     
     
-        NSLog(@"==%@",_getword[indexPath.row]);
+    NSLog(@"==%@",_getword[indexPath.row]);
     
     cell2.textLabel.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
     

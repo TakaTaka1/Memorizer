@@ -11,6 +11,7 @@
 		6D64DE231A9EFDF600DCE236 /* CopyDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D64DE221A9EFDF600DCE236 /* CopyDetail.m */; };
 		6D83CEA31AAD66C000702ACD /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D83CEA21AAD66C000702ACD /* CustomTableViewCell.m */; };
 		6D83CEA61AAD68E500702ACD /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D83CEA51AAD68E500702ACD /* CustomCell.xib */; };
+		6DC9E0421AB2A866002F4588 /* ViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC9E0411AB2A866002F4588 /* ViewController3.m */; };
 		6DD977661A96FCF600BE04F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD977651A96FCF600BE04F9 /* main.m */; };
 		6DD977691A96FCF600BE04F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD977681A96FCF600BE04F9 /* AppDelegate.m */; };
 		6DD9776C1A96FCF600BE04F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD9776B1A96FCF600BE04F9 /* ViewController.m */; };
@@ -38,6 +39,8 @@
 		6D83CEA21AAD66C000702ACD /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		6D83CEA51AAD68E500702ACD /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		6D83CEAB1AAD6A3000702ACD /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		6DC9E0401AB2A866002F4588 /* ViewController3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController3.h; sourceTree = "<group>"; };
+		6DC9E0411AB2A866002F4588 /* ViewController3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController3.m; sourceTree = "<group>"; };
 		6DD977601A96FCF600BE04F9 /* memorizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = memorizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD977641A96FCF600BE04F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DD977651A96FCF600BE04F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				6D83CEA51AAD68E500702ACD /* CustomCell.xib */,
 				6D1FB5321AA486EC00B622EE /* Main.storyboard */,
 				6DD977671A96FCF600BE04F9 /* AppDelegate.h */,
+				6DC9E0401AB2A866002F4588 /* ViewController3.h */,
+				6DC9E0411AB2A866002F4588 /* ViewController3.m */,
 				6DD977681A96FCF600BE04F9 /* AppDelegate.m */,
 				6DD9776A1A96FCF600BE04F9 /* ViewController.h */,
 				6DD9776B1A96FCF600BE04F9 /* ViewController.m */,
@@ -262,6 +267,7 @@
 				6DD9778B1A96FEC700BE04F9 /* WebViewDetail.m in Sources */,
 				6DD977661A96FCF600BE04F9 /* main.m in Sources */,
 				6D64DE231A9EFDF600DCE236 /* CopyDetail.m in Sources */,
+				6DC9E0421AB2A866002F4588 /* ViewController3.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +338,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -353,6 +360,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Takao Hoshino (JG77RR3QVV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -366,6 +374,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "89f1bf2f-0ae9-450b-a6c7-921db17fd6d2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

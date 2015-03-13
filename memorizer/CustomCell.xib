@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,19 +13,28 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mZC-Tp-KYJ" id="uhq-dj-uDs">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMk-SU-F5X">
-                        <rect key="frame" x="8" y="1" width="272" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMk-SU-F5X">
+                        <rect key="frame" x="8" y="4" width="272" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-75-0bp">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekr-75-0bp">
                         <rect key="frame" x="8" y="27" width="272" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="highlightedColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="ekr-75-0bp" secondAttribute="trailing" constant="32" id="IKz-Sr-tTU"/>
+                    <constraint firstItem="xMk-SU-F5X" firstAttribute="top" secondItem="uhq-dj-uDs" secondAttribute="topMargin" constant="-4" id="T1l-Vk-9wx"/>
+                    <constraint firstItem="ekr-75-0bp" firstAttribute="top" secondItem="xMk-SU-F5X" secondAttribute="bottom" constant="2" id="TeJ-GP-aSI"/>
+                    <constraint firstItem="xMk-SU-F5X" firstAttribute="leading" secondItem="uhq-dj-uDs" secondAttribute="leadingMargin" id="m8L-2v-XOy"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="ekr-75-0bp" secondAttribute="bottom" constant="-12.5" id="v67-Ra-Ek2"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xMk-SU-F5X" secondAttribute="trailing" constant="32" id="vgN-U5-Mig"/>
+                    <constraint firstItem="ekr-75-0bp" firstAttribute="leading" secondItem="uhq-dj-uDs" secondAttribute="leadingMargin" id="ywc-5f-IAC"/>
+                </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="myLabel1" destination="xMk-SU-F5X" id="gVC-9g-Nak"/>
