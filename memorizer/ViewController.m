@@ -99,7 +99,7 @@
     
     cell.myLabel2.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
     
-    
+    //cell.
 
     return cell;
 }
