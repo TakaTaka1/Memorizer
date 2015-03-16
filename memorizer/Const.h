@@ -11,3 +11,4 @@
 
 static NSString *const CustomCell=@"CustomCell";
 
+static NSString *const customcell2=@"customcell2";

@@ -10,6 +10,5 @@
 
 @interface CopyDetail : UIViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *CopyTableView;
-@property (weak, nonatomic) IBOutlet UILabel *mylabel;
 
 @end

@@ -11,6 +11,8 @@
 
 @interface WebViewDetail () <UIWebViewDelegate>
 {BOOL flag;
+    
+    NSMutableArray *_getTitle;
 }
 @end
 
@@ -109,15 +111,47 @@
     NSMutableArray *array = [[userdefaults objectForKey:@"copytext"] mutableCopy];   //copytextをキーとして使いmutableCopyメソッドで格納していく
     
     
+    
+    //////////////// versionUp
+    NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
+    
+    _getTitle=[[ud objectForKey:@"copytitle"]mutableCopy];
+    
+    
+    
+    
+    
+    ////////////////
+    
+    
     if(flag==NO)    //PasteBoardは、保存と消去で２回呼ばれるので、このif文を記述
         
     {
         
-        
         if(array==nil){
             array=[[NSMutableArray alloc]init];
+            
             //配列は、初期化してあげないと格納していかない nilの状態だと0に掛け算しているようなもの
         }
+        
+        /////////////////////////////////// versionUp
+        
+        if (_getTitle==nil) {
+            _getTitle=[[NSMutableArray alloc]init];
+            
+        }
+        
+        [_getTitle addObject:[NSString stringWithFormat:@"%@",_passivetitle]];
+        
+        [ud setObject:_getTitle forKey:@"copytitle"];
+        
+        [ud synchronize];
+        
+        _getTitle=[ud objectForKey:@"copytitle"];
+        
+        NSLog(@"ud1=%@",_getTitle);
+        
+        //////////////////////////////////
         
         
         [array addObject:[NSString stringWithFormat:@"%@",string]];

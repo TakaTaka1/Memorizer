@@ -14,16 +14,18 @@
 @interface ViewController ()
 {
 
-@private
-    
+//@private
+    BOOL isflag;
     BOOL isUrl;
     BOOL isTarget;
     NSMutableArray *_titles;
     NSMutableDictionary *_various;
+    NSMutableArray *_gottitle2;
 }
 @end
 
 @implementation ViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,10 +53,9 @@
     // カスタマイズしたセルをテーブルビューにセット
     
     UINib *nib = [UINib nibWithNibName:CustomCell bundle:nil];    //CustomCellを認識
-    [self.searchTable registerNib:nib forCellReuseIdentifier:@"Cell"]; //さらにsearchTableにCellタグで認識
+    [self.searchTable registerNib:nib forCellReuseIdentifier:@"Cell"]; //さらにsearchTableにCellタグで認
     
-    
-    
+    isflag=YES;    //XMLの解析が終了した時に一度だけ0番目の行を消すため
     
    }
 
@@ -63,7 +64,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section   //////   2
 {
     
-     return _titles.count-1;
+     return _titles.count;
 }
 
 
@@ -95,13 +96,21 @@
     
     
     
+    
+    
+    
+    
     cell.myLabel1.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"title"]];
     
     cell.myLabel2.text=[NSString stringWithFormat:@"%@",_titles[indexPath.row][@"url"]];
     
-    //cell.
-
+    
+    ///////////////versionUpのため追加
+   
     return cell;
+    
+    
+    
 }
 
 
@@ -119,6 +128,9 @@
     
     
     detail.passiveUrl=_titles[indexPath.row][@"url"];
+    
+    detail.passivetitle=_titles[indexPath.row][@"title"];
+     
 
 }
 
@@ -191,17 +203,17 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].networkActivityIndicatorVisible=NO;
             [self.searchTable reloadData];
-            
+          
         });
     }];
     
     [urlsessionDataTask resume];
     
-    
+    _titles=[[NSMutableArray alloc]init];
+  
     [searchBar resignFirstResponder];
     
-    _titles=[[NSMutableArray alloc]init];
-    
+     
     
 }
 
@@ -242,6 +254,7 @@ qualifiedName:(NSString *)qName
     if([elementName isEqualToString:@"d:Title"]){
     
         isTarget=YES;
+        
     }else if([elementName isEqualToString:@"d:DisplayUrl"]){
     
         isUrl=YES;
@@ -260,7 +273,6 @@ qualifiedName:(NSString *)qName
         
         
     }else if(isUrl){
-    
     
     [_various setObject:string forKey:@"url"];
     
@@ -284,9 +296,10 @@ qualifiedName:(NSString *)qName
     [_titles addObject:_various];
     
     _various=[[NSMutableDictionary alloc]init];
+   
     }
 
-
+   
 
 }
 
@@ -296,10 +309,16 @@ qualifiedName:(NSString *)qName
 //////////////////デリゲートメソッド（解析終了時）
 -(void)parserDidEndDocument:(NSXMLParser *)parser{
     
+
+    if (isflag) {
+
+    
     [_titles removeObjectAtIndex:0];
+        isflag=NO;
+        
+    }
     
-    
-    
+
 }
 
 

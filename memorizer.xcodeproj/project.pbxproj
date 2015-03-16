@@ -11,6 +11,8 @@
 		6D64DE231A9EFDF600DCE236 /* CopyDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D64DE221A9EFDF600DCE236 /* CopyDetail.m */; };
 		6D83CEA31AAD66C000702ACD /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D83CEA21AAD66C000702ACD /* CustomTableViewCell.m */; };
 		6D83CEA61AAD68E500702ACD /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D83CEA51AAD68E500702ACD /* CustomCell.xib */; };
+		6DC9E05F1AB579E5002F4588 /* TableViewCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC9E05E1AB579E5002F4588 /* TableViewCell2.m */; };
+		6DC9E0611AB57A5C002F4588 /* customcell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC9E0601AB57A5C002F4588 /* customcell2.xib */; };
 		6DD977661A96FCF600BE04F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD977651A96FCF600BE04F9 /* main.m */; };
 		6DD977691A96FCF600BE04F9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD977681A96FCF600BE04F9 /* AppDelegate.m */; };
 		6DD9776C1A96FCF600BE04F9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD9776B1A96FCF600BE04F9 /* ViewController.m */; };
@@ -38,6 +40,9 @@
 		6D83CEA21AAD66C000702ACD /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		6D83CEA51AAD68E500702ACD /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		6D83CEAB1AAD6A3000702ACD /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		6DC9E05D1AB579E5002F4588 /* TableViewCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell2.h; sourceTree = "<group>"; };
+		6DC9E05E1AB579E5002F4588 /* TableViewCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell2.m; sourceTree = "<group>"; };
+		6DC9E0601AB57A5C002F4588 /* customcell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = customcell2.xib; sourceTree = "<group>"; };
 		6DD977601A96FCF600BE04F9 /* memorizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = memorizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD977641A96FCF600BE04F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DD977651A96FCF600BE04F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -122,6 +127,9 @@
 				6DD9778A1A96FEC700BE04F9 /* WebViewDetail.m */,
 				6D64DE211A9EFDF600DCE236 /* CopyDetail.h */,
 				6D64DE221A9EFDF600DCE236 /* CopyDetail.m */,
+				6DC9E05D1AB579E5002F4588 /* TableViewCell2.h */,
+				6DC9E05E1AB579E5002F4588 /* TableViewCell2.m */,
+				6DC9E0601AB57A5C002F4588 /* customcell2.xib */,
 				6DD977701A96FCF600BE04F9 /* Images.xcassets */,
 				6DD977721A96FCF600BE04F9 /* LaunchScreen.xib */,
 				6DD977631A96FCF600BE04F9 /* Supporting Files */,
@@ -237,6 +245,7 @@
 			files = (
 				6D1FB5331AA486EC00B622EE /* Main.storyboard in Resources */,
 				6DD977741A96FCF600BE04F9 /* LaunchScreen.xib in Resources */,
+				6DC9E0611AB57A5C002F4588 /* customcell2.xib in Resources */,
 				6D83CEA61AAD68E500702ACD /* CustomCell.xib in Resources */,
 				6DD977711A96FCF600BE04F9 /* Images.xcassets in Resources */,
 			);
@@ -257,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DD9776C1A96FCF600BE04F9 /* ViewController.m in Sources */,
+				6DC9E05F1AB579E5002F4588 /* TableViewCell2.m in Sources */,
 				6DD977691A96FCF600BE04F9 /* AppDelegate.m in Sources */,
 				6D83CEA31AAD66C000702ACD /* CustomTableViewCell.m in Sources */,
 				6DD9778B1A96FEC700BE04F9 /* WebViewDetail.m in Sources */,
@@ -368,7 +378,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "89f1bf2f-0ae9-450b-a6c7-921db17fd6d2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

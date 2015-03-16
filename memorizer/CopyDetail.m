@@ -8,11 +8,13 @@
 
 #import "CopyDetail.h"
 #import "WebViewDetail.h"
-
+#import "ViewController.h"
+#import "TableViewCell2.h"
+#import "Const.h"
 @interface CopyDetail ()
 {
-    
-    NSMutableArray *_getword;
+    NSMutableArray *_gotTitle;
+    NSMutableArray *_getword;   
     NSInteger *_count;
     
 }
@@ -32,10 +34,34 @@
     
     _getword=[[userdefaults objectForKey:@"copytext"]mutableCopy];
    
-    
-    [userdefaults objectForKey:[NSString stringWithFormat:@"%@",_getword]];
-    
     [userdefaults synchronize];
+
+    
+    
+    
+//////////////// versionUp
+    
+    
+    
+    NSUserDefaults *log=[NSUserDefaults standardUserDefaults];
+    
+    if (_gotTitle==nil) {
+        _gotTitle=[[NSMutableArray alloc]init];
+    }
+    
+    _gotTitle=[[log objectForKey:@"copytitle"]mutableCopy];
+    
+  //  [log objectForKey:[NSString stringWithFormat:@"%@",_gotTitle]];
+    
+    [log synchronize];
+    
+
+    
+    UINib *nib2 = [UINib nibWithNibName:customcell2 bundle:nil];    //CustomCellを認識
+    [self.CopyTableView registerNib:nib2 forCellReuseIdentifier:@"Cell2"]; //さらにsearchTableにCellタグで認識
+//
+    
+    
     
     [self.CopyTableView reloadData];
 
@@ -50,7 +76,11 @@
     
     self.CopyTableView.delegate=self;
     self.CopyTableView.dataSource=self;
-    [self.CopyTableView setEditing:NO animated:YES];
+   // [self.CopyTableView setEditing:nO animated:YES];
+    
+    
+    
+   
 
     
 }
@@ -66,33 +96,67 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
    
    
-   static NSString *cellidentifier=@"Cell2";
+//   static NSString *cellidentifier=@"Cell2";
+//    
+//   UITableViewCell *cell2=[tableView dequeueReusableCellWithIdentifier:cellidentifier];
+//    
+//    if(cell2==nil){
+//    
+//        cell2=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellidentifier];
+//    
+//    }
+//    
+//    
+//    NSLog(@"==%@",_getword[indexPath.row]);
+//    
+//    cell2.textLabel.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
+//
+//    
+//    
     
-   UITableViewCell *cell2=[tableView dequeueReusableCellWithIdentifier:cellidentifier];
     
-    if(cell2==nil){
+    ///////////////VersionUpのため　customCell 実装
     
-        cell2=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellidentifier];
+    static NSString *const customCell2=@"Cell2";
     
-    }
+//    static NSString *const customCell2=@"customCell2";
+//
+//
+//
     
+    TableViewCell2 *cell2=[tableView dequeueReusableCellWithIdentifier:customCell2];
     
-    NSLog(@"==%@",_getword[indexPath.row]);
-    
-    cell2.textLabel.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
-    
+//  cell2.textLabel.text=[NSString stringWithFormat:@"%@",_gotTitle[indexPath.row][@"title"]];
 
+    cell2.logLabel.text=[NSString stringWithFormat:@"%@",_gotTitle[indexPath.row]];
+//    
+//   
+    
+    cell2.Label2.text=[NSString stringWithFormat:@"%@",_getword[indexPath.row]];
+   
+    NSLog(@"%ld",(long)indexPath.row);
+    
     return cell2;
     
+    
+
 }
  
     
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    
+  //  TableViewCell2 *cell2=[tableView dequeueReusableCellWithIdentifier:customCell2];
     
     
-    NSString *term = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    
+    
+    NSString *term = _getword[indexPath.row];
+    
+    
+    
+   // NSString *term = [tableView cellForRowAtIndexPath:indexPath].textlabel.text;
+    
     
     
     if (term) {
@@ -139,10 +203,22 @@
         [ud synchronize];
         //userdefaultを更新
 
-        _getword =copytext;
+        _getword = copytext;
+        
+        NSUserDefaults *ud2=[NSUserDefaults standardUserDefaults];
+        
+        NSMutableArray *copytitle=[[ud2 objectForKey:@"copytitle"]mutableCopy];
+        
+        [copytitle removeObjectAtIndex:indexPath.row];
+        
+        [ud2 setObject:copytitle forKey:@"copytitle"];
+        
+        [ud2 synchronize];
+        
+        _gotTitle=copytitle;
         
         
-       
+        
         [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
       
     }
@@ -157,7 +233,10 @@ titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    return [TableViewCell2 rowHeight];
+}
 
 
 

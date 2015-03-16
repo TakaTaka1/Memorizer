@@ -16,7 +16,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+//    Override point for customization after application launch.
+//    NSString *appDomain=[[NSBundle mainBundle]bundleIdentifier];
+//    [[NSUserDefaults standardUserDefaults]removePersistentDomainForName:appDomain];
+//    このメソッドを使えば、指定したクラスを初期化できる
+//    
+    
     return YES;
 }
 
