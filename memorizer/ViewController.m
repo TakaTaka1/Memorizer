@@ -264,6 +264,7 @@ qualifiedName:(NSString *)qName
 }
 
 //////////////////デリゲートメソッド（タグ以外のテキストを読み込んだ時）
+
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
 
     if(isTarget){
