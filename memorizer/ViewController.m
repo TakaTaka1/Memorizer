@@ -14,7 +14,7 @@
 @interface ViewController ()
 {
 
-//@private
+@private
     BOOL isflag;
     BOOL isUrl;
     BOOL isTarget;
@@ -45,7 +45,7 @@
     
     NSDictionary *tmp=@{@"title":@"",@"url":@""};
     
-    _various=[tmp mutableCopy];
+    _various=tmp.mutableCopy;
    
     _titles=[NSMutableArray arrayWithObjects:_various, nil];
     
